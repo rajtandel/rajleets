@@ -1,20 +1,22 @@
 class Solution {
   List<int> findErrorNums(List<int> nums) {
-   int duplicate = -1;
-  int missing = -1;
-  for (int i = 1; i <= nums.length; i++) {
-    int count = 0;
-    for (int j = 0; j < nums.length; j++) {
-      if (nums[j] == i) {
-        count++;
+    var repeatedNumber = 0;
+  var missingNumber = 0;
+  for (int i = 0; i < nums.length; i++) {
+    var currentNumber = nums[i];
+    var correctNumber = i + 1;
+    if (currentNumber != correctNumber) {
+      if (!nums.contains(correctNumber)) {
+        missingNumber = correctNumber;
       }
     }
-    if (count == 2) {
-      duplicate = i;
-    } else if (count == 0) {
-      missing = i;
+    for (int j = i + 1; j < nums.length; j++) {
+      if (nums[i] == nums[j]) {
+        repeatedNumber = nums[i];
+        break;
+      }
     }
   }
-  return [duplicate, missing];
+  return [repeatedNumber, missingNumber];
   }
 }
