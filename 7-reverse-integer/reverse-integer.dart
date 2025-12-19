@@ -1,20 +1,20 @@
 class Solution {
   int reverse(int x) {
-    if(x.bitLength >= 31) {
-        if(x != -2147483412 && x != 1463847412 && x != -1463847412){
+    bool isNegative = x < 0;
+    if(x<0) {
+        x = x.abs();
+    }
+
+    int reversed = 0;
+    while(x > 0) {
+        int digit = x % 10;
+         if (reversed > (2147483647 - digit) ~/ 10) {
              return 0;
-        }
-        
+         }
+    
+        reversed = reversed * 10 + digit;
+        x ~/= 10;
     }
-    String strX = '$x';
-    String output = '';
-    for(int i=strX.length - 1;i>=0;i--) {
-        if (strX[i] == '-') {
-             output = '-$output';
-        } else {
-            output = output + strX[i];
-        }
-    }
-    return int.tryParse(output) ?? 0;
+    return isNegative ? -reversed : reversed;;
   }
 }
